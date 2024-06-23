@@ -13,12 +13,13 @@ function Button(props: PropsWithChildren<ButtonProps>) {
     error,
     raised,
     underlined,
+    outlined,
     disabled,
     loading,
     ...rest
   } = props;
 
-  const isRaised = raised || (!underlined && !raised);
+  const isRaised = raised || (!underlined && !outlined && !raised);
   const isBasic = basic || (!primary && !secondary && !error && !basic);
 
   const classes = twMerge(
@@ -39,6 +40,16 @@ function Button(props: PropsWithChildren<ButtonProps>) {
         "text-pm-orange-base px-1": underlined && primary,
         "text-pm-green-base px-1": underlined && secondary,
         "text-pm-black px-1": underlined && isBasic,
+        "lowercase bg-transparent border border-pm-black m-1 px-3 py-1 drop-shadow-none":
+          outlined,
+        "border-pm-orange-base text-pm-orange-base hover:bg-pm-orange-lighter":
+          outlined && primary,
+        "border-pm-green-base text-pm-green-base hover:bg-pm-green-lighter":
+          outlined && secondary,
+        "border-pm-black text-pm-black hover:bg-pm-grey-light":
+          outlined && isBasic,
+        "border-pm-error-base text-pm-error-base hover:bg-pm-error-lighter":
+          outlined && error,
         "opacity-80 pointer-events-none": loading,
         "opacity-20 pointer-events-none": disabled,
       },

@@ -7,6 +7,7 @@ export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   error?: boolean;
   raised?: boolean;
   underlined?: boolean;
+  outlined?: boolean;
   disabled?: boolean;
   loading?: boolean;
 }
