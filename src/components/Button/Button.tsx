@@ -1,4 +1,4 @@
-import className from "classnames";
+import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 import { ButtonProps } from "./ButtonProps";
 import { PropsWithChildren } from "react";
@@ -23,7 +23,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
   const isBasic = basic || (!primary && !secondary && !error && !basic);
 
   const classes = twMerge(
-    className(
+    classNames(
       "flex items-center px-16 py-2 rounded-full font-roboto font-medium",
       {
         "bg-pm-orange-base text-pm-white": primary,
@@ -32,23 +32,24 @@ function Button(props: PropsWithChildren<ButtonProps>) {
         "bg-pm-error-base text-pm-white": error,
         "drop-shadow-xl uppercase active:drop-shadow-none active:shadow-inner":
           isRaised,
-        "hover:bg-pm-orange-hover": isRaised && primary,
-        "hover:bg-pm-green-hover": isRaised && secondary,
-        "hover:bg-pm-grey-hover": isRaised && isBasic,
-        "hover:bg-pm-error-hover": isRaised && error,
-        "bg-transparent normal-case hover:underline active:": underlined,
+        "notmobile:hover:bg-pm-orange-hover": isRaised && primary,
+        "notmobile:hover:bg-pm-green-hover": isRaised && secondary,
+        "notmobile:hover:bg-pm-grey-hover": isRaised && isBasic,
+        "notmobile:hover:bg-pm-error-hover": isRaised && error,
+        "bg-transparent normal-case notmobile:hover:underline active:shadow-none":
+          underlined,
         "text-pm-orange-base px-1": underlined && primary,
         "text-pm-green-base px-1": underlined && secondary,
-        "text-pm-black px-1": underlined && isBasic,
+        "text-pm-black px-1 active:text-pm-orange-base": underlined && isBasic,
         "lowercase bg-transparent border border-pm-black m-1 px-3 py-1 drop-shadow-none":
           outlined,
-        "border-pm-orange-base text-pm-orange-base hover:bg-pm-orange-lighter":
+        "border-pm-orange-base text-pm-orange-base notmobile:hover:bg-pm-orange-lighter":
           outlined && primary,
-        "border-pm-green-base text-pm-green-base hover:bg-pm-green-lighter":
+        "border-pm-green-base text-pm-green-base notmobile:hover:bg-pm-green-lighter":
           outlined && secondary,
-        "border-pm-black text-pm-black hover:bg-pm-grey-light":
+        "border-pm-black text-pm-black notmobile:hover:bg-pm-grey-light":
           outlined && isBasic,
-        "border-pm-error-base text-pm-error-base hover:bg-pm-error-lighter":
+        "border-pm-error-base text-pm-error-base notmobile:hover:bg-pm-error-lighter":
           outlined && error,
         "opacity-80 pointer-events-none": loading,
         "opacity-20 pointer-events-none": disabled,
