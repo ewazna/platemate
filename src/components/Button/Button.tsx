@@ -24,12 +24,16 @@ function Button(props: PropsWithChildren<ButtonProps>) {
 
   const classes = twMerge(
     classNames(
-      "flex items-center px-16 py-2 rounded-full font-roboto font-medium",
+      "flex items-center px-16 py-2 rounded-full font-roboto font-medium ",
+      "focus-visible:outline focus-visible:outline-2",
       {
-        "bg-pm-orange-base text-pm-white": primary,
-        "bg-pm-green-base text-pm-white": secondary,
-        "bg-pm-white text-pm-black": isBasic,
-        "bg-pm-error-base text-pm-white": error,
+        "bg-pm-orange-base text-pm-white focus-visible:outline-pm-orange-base ":
+          primary,
+        "bg-pm-green-base text-pm-white focus-visible:outline-pm-green-base":
+          secondary,
+        "bg-pm-white text-pm-black focus-visible:outline-pm-white": isBasic,
+        "bg-pm-error-base text-pm-white focus-visible:outline-pm-error-base":
+          error,
         "drop-shadow-xl uppercase active:drop-shadow-none active:shadow-inner":
           isRaised,
         "notmobile:hover:bg-pm-orange-hover": isRaised && primary,
