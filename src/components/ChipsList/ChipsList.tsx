@@ -2,23 +2,25 @@ import { ChipsListProps } from "./ChipsListProps";
 import Chip from "../Chip/Chip";
 
 function ChipsList(props: ChipsListProps) {
-  const { chips, selectionType, onChange, value, ...rest } = props;
+  const { chips, selectionType, onChange, value, className } = props;
 
   const handleSelect = (chip: string) => {
     if (!onChange) {
       return;
     } else {
       if (selectionType === "multi") {
-        const index = value && value.indexOf(chip);
         let newValue;
-
-        if (value && index >= 0) {
-          newValue = value.slice();
-          newValue.splice(index, 1);
+        if (value) {
+          const index = value.indexOf(chip);
+          if (index >= 0) {
+            newValue = value.slice();
+            newValue.splice(index, 1);
+          } else {
+            newValue = value.concat(chip);
+          }
         } else {
-          newValue = value ? value.concat(chip) : [chip];
+          newValue = [chip];
         }
-
         onChange(newValue);
       } else if (selectionType === "single") {
         onChange((value || []).includes(chip) ? [] : [chip]);
@@ -56,7 +58,8 @@ function ChipsList(props: ChipsListProps) {
       />
     );
   });
-  return <div {...rest}>{genChips}</div>;
+
+  return <div className={className}>{genChips}</div>;
 }
 
 export default ChipsList;

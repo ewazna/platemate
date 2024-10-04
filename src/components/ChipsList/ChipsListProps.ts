@@ -1,9 +1,9 @@
 interface ChipsListOptionalProps {
+  className: string;
   chips: string[];
   selectionType: "single" | "multi" | "none";
-  value: string[];
-  clear: boolean;
-  onChange: (selectedChips: string[]) => void;
+  value?: string[];
+  onChange?: (selectedChips: string[]) => void;
 }
 
 export type ChipsListProps = ChipsListOptionalProps &
