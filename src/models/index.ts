@@ -1,8 +1,13 @@
 export type { Comment } from "./Comment";
 export type { Ingredient } from "./Ingredient";
 export type { Recipe } from "./Recipe";
+export type { RecipePhoto } from "./RecipePhoto";
+export type { Group } from "./Group";
+export type { Tag } from "./Tag";
+export type { Time } from "./Time";
+export type { Step } from "./Step";
 export { Difficulty } from "./DifficultyEnum";
 export { Unit } from "./UnitEnum";
-export { TimeUnit } from "./TimeUnitEnum";
 export { Rate } from "./RateEnum";
 export { MealCategory } from "./MealCategoryEnum";
+export { TimeUnit } from "./TimeUnitEnum";

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Group } from "../../models";
+import { Group } from "../../../models";
 
 const groupsApi = createApi({
   reducerPath: "groups",

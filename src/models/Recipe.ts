@@ -2,6 +2,7 @@ import { Difficulty } from "./DifficultyEnum";
 import { Ingredient } from "./Ingredient";
 import { Rate } from "./RateEnum";
 import { MealCategory } from "./MealCategoryEnum";
+import { RecipePhoto } from "./RecipePhoto";
 
 export interface Recipe {
   _id?: string;
@@ -16,7 +17,7 @@ export interface Recipe {
   ingredients: Ingredient[];
   description: string;
   steps: string[];
-  photos: { filename: string; url: string }[];
+  photos: RecipePhoto[];
   comments?: Comment[];
   rate?: Rate;
   favourite: boolean;
