@@ -3,34 +3,39 @@ import { OutsideAlerterProps } from "./OutsideAlerterProps";
 
 interface useOutsideAlerterProps {
   handleOutsideClick: () => void;
+  triggerRef: RefObject<HTMLElement>;
+  wrapperRef: RefObject<HTMLDivElement>;
 }
 
-function useOutsideAlerter(
-  { handleOutsideClick }: useOutsideAlerterProps,
-  ref: RefObject<HTMLDivElement>,
-) {
+function useOutsideAlerter({ handleOutsideClick, triggerRef, wrapperRef }: useOutsideAlerterProps) {
   useEffect(() => {
-    function handleClickOutside(e: Event) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
+    function globalClickHandller(e: Event) {
+      if (
+        wrapperRef.current &&
+        triggerRef.current &&
+        !wrapperRef.current.contains(e.target as Node) &&
+        !triggerRef.current.contains(e.target as Node)
+      ) {
         handleOutsideClick();
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", globalClickHandller);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", globalClickHandller);
     };
-  }, [ref, handleOutsideClick]);
+  }, [wrapperRef, triggerRef, handleOutsideClick]);
 }
 
 function OutsideAlerter({
   handleOutsideClick,
+  triggerRef,
   children,
   ...rest
 }: PropsWithChildren<OutsideAlerterProps>) {
   const wrapperRef = useRef(null);
-  useOutsideAlerter({ handleOutsideClick }, wrapperRef);
+  useOutsideAlerter({ handleOutsideClick, triggerRef, wrapperRef });
 
   return (
     <div ref={wrapperRef} {...rest}>
