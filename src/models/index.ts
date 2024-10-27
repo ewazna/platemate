@@ -6,6 +6,7 @@ export type { Group } from "./Group";
 export type { Tag } from "./Tag";
 export type { Time } from "./Time";
 export type { Step } from "./Step";
+export type { Option } from "./Option";
 export { Difficulty } from "./DifficultyEnum";
 export { Unit } from "./UnitEnum";
 export { Rate } from "./RateEnum";
