@@ -1,19 +1,28 @@
-import { createPortal } from "react-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import { CgClose } from "react-icons/cg";
 import { PiPlusBold } from "react-icons/pi";
 import { GroupsManagerProps } from "./GroupsManagerProps";
 import { GroupsManagerFormFields } from "./GroupsManagerFormFields";
+import { Group } from "../../../../models";
 import IconButton from "../../../../components/IconButton/IconButton";
 import Button from "../../../../components/Button/Button";
 import Card from "../../../../components/Card/Card";
+import Modal from "../../../../components/Modal/Modal";
+import GroupDialog from "../GroupDialog/GroupDialog";
 import GroupController from "../GroupController/GroupController";
 
-function GroupsManager({ showModal, closeGroupsManager, groupsApply, groups }: GroupsManagerProps) {
+function GroupsManager({
+  isGroupsManagerShown,
+  closeGroupsManager,
+  groupsApply,
+  groups,
+}: GroupsManagerProps) {
   const defaultValues = {
     groups,
   };
+  const [shouldShowDialog, setShouldShowDialog] = useState(false);
+  const [isDialogShown, setIsDialogShown] = useState(false);
 
   const { handleSubmit, control, reset } = useForm<GroupsManagerFormFields>({
     defaultValues,
@@ -29,11 +38,22 @@ function GroupsManager({ showModal, closeGroupsManager, groupsApply, groups }: G
   }, [groups, reset]);
 
   const onSubmit: SubmitHandler<GroupsManagerFormFields> = (data) => {
-    groupsApply(data.groups);
+    if (shouldShowDialog) {
+      setIsDialogShown(true);
+      return;
+    }
+    groupsApply(data.groups, false);
+  };
+
+  const onConfirmedSubmit = (deleteRecipes: boolean) => {
+    return (data: GroupsManagerFormFields) => {
+      groupsApply(data.groups, deleteRecipes);
+    };
   };
 
   const discardGroupsChanges = () => {
     reset(defaultValues);
+    setShouldShowDialog(false);
   };
 
   const handleCloseGroupsManager = () => {
@@ -42,27 +62,36 @@ function GroupsManager({ showModal, closeGroupsManager, groupsApply, groups }: G
   };
 
   const handleAddInput = () => {
-    append({ name: "" });
+    append({ name: "", state: "empty" });
+  };
+
+  const handleDelete = (field: Group, i: number) => {
+    remove(i);
+    if (field.state === "used") {
+      setShouldShowDialog(true);
+    }
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogShown(!isDialogShown);
   };
 
   return (
     <>
-      {createPortal(
+      <Modal isModalShown={isGroupsManagerShown} closeModal={closeGroupsManager}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div
             className={
               "absolute inset-0 bg-gray-600 " +
-              (showModal
-                ? "animate-fadeIn opacity-80 display-[inherit]"
-                : "animate-fadeOut opacity-0 hidden")
+              (isGroupsManagerShown ? "animate-fadeIn opacity-80" : "animate-fadeOut opacity-0")
             }
           ></div>
           <Card
             className={
               "absolute top-32 rounded-b-none h-[calc(100%_-_128px)] px-6 " +
-              (showModal
-                ? "animate-slideIn translate-y-0 display-[inherit]"
-                : "animate-slideOut translate-y-full hidden")
+              (isGroupsManagerShown
+                ? "animate-slideIn translate-y-0"
+                : "animate-slideOut translate-y-full")
             }
           >
             <div className="flex items-start justify-between sticky top-0">
@@ -81,7 +110,7 @@ function GroupsManager({ showModal, closeGroupsManager, groupsApply, groups }: G
               {fields.map((field, i) => {
                 return (
                   <GroupController
-                    handleDelete={() => remove(i)}
+                    handleDelete={() => handleDelete(field, i)}
                     key={field.id}
                     {...{ control, i, field }}
                   />
@@ -92,14 +121,19 @@ function GroupsManager({ showModal, closeGroupsManager, groupsApply, groups }: G
               <Button basic underlined type="button" onClick={discardGroupsChanges}>
                 Discard changes
               </Button>
-              <Button secondary raised type="submit">
+              <Button secondary raised type="submit" className="w-44">
                 Apply
               </Button>
             </div>
           </Card>
-        </form>,
-        document.querySelector(".container") as Element,
-      )}
+        </form>
+      </Modal>
+      <GroupDialog
+        isDialogShown={isDialogShown}
+        closeDialog={handleCloseDialog}
+        handleKeepRecipes={handleSubmit(onConfirmedSubmit(false))}
+        handleDeleteRecipes={handleSubmit(onConfirmedSubmit(true))}
+      />
     </>
   );
 }

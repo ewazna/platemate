@@ -1,8 +1,8 @@
 import { Group } from "../../../../models";
 
 export interface GroupsManagerProps {
-  showModal: boolean;
-  groups: Group[];
+  isGroupsManagerShown: boolean;
   closeGroupsManager: () => void;
-  groupsApply: (data: Group[]) => void;
+  groups: Group[];
+  groupsApply: (data: Group[], deleteRecipes: boolean) => void;
 }
