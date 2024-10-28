@@ -2,12 +2,7 @@ import { useState, useEffect } from "react";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import { ExpansionPanelProps } from "./ExpansionPanelProps";
 
-function ExpansionPanel({
-  title,
-  children,
-  isExpanded,
-  ...rest
-}: ExpansionPanelProps) {
+function ExpansionPanel({ title, children, isExpanded, ...rest }: ExpansionPanelProps) {
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
@@ -22,14 +17,15 @@ function ExpansionPanel({
 
   return (
     <section {...rest}>
-      <div
+      <button
+        type="button"
         onClick={handleClick}
-        className="flex justify-start items-center cursor-pointer"
+        className="m-1 max-w-fit flex justify-start items-center cursor-pointer focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-pm-orange-base"
       >
-        <div className="mr-2">{title}</div>
-        <div>{expanded ? <GoChevronDown /> : <GoChevronUp />}</div>
-      </div>
-      {expanded && <div>{children}</div>}
+        {title}
+        {expanded ? <GoChevronDown className="ml-2" /> : <GoChevronUp className="ml-2" />}
+      </button>
+      {expanded && <div className="mx-1">{children}</div>}
     </section>
   );
 }
