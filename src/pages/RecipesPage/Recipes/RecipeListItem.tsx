@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
 import IconButton from "../../../components/IconButton/IconButton";
-import RecipeContextMenu from "../../RecipeItemPage/components/RecipeContextMenu/RecipeContextMenu";
+import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu";
+import { useChangeRecipeItemMutation } from "../../../store";
 
 import { Difficulty, TimeUnit } from "../../../models";
 import { RecipeListItemProps } from "./RecipeListItemProps";
@@ -71,6 +72,7 @@ function getTimeColor(time: number, shortTime: number, longTime: number): string
 
 function RecipeListItem({ recipe }: RecipeListItemProps) {
   const navigate = useNavigate();
+  const [changeRecipeItem] = useChangeRecipeItemMutation();
 
   const heartIcon = recipe.favourite ? <PiHeartStraightFill /> : <PiHeartStraightBold />;
   const shortTime = 30;
@@ -86,15 +88,25 @@ function RecipeListItem({ recipe }: RecipeListItemProps) {
     navigate(`/recipes/${recipe._id}`);
   };
 
+  const handleFavourites = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    changeRecipeItem({
+      ...recipe,
+      favourite: !recipe.favourite,
+    });
+  };
+
   return (
     <>
       <figure
         tabIndex={0}
-        className="flex flex-col justify-between pb-1 relative w-40 h-48 mb-4 mx-1 rounded-xl bg-pm-grey-light shadow-md focus-visible:outline-2 focus-visible:shadow-none"
+        className="flex flex-col justify-between pb-1 relative w-40 h-48 mb-4 mx-1 rounded-xl bg-pm-grey-light shadow-md focus-visible:outline-2 focus-visible:outline-pm-orange-base focus-visible:shadow-none"
         onClick={handleClick}
       >
         <div>
-          <IconButton className="absolute top-1 right-1 text-white">{heartIcon}</IconButton>
+          <IconButton className="absolute top-1 right-1 text-white" onClick={handleFavourites}>
+            {heartIcon}
+          </IconButton>
           <img
             src={convertUrl(recipe.photos[0].url)}
             alt={recipe.title + " photo"}
