@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PiPlusBold } from "react-icons/pi";
 import { CgClose } from "react-icons/cg";
 import Card from "../../../components/Card/Card";
@@ -16,12 +16,22 @@ function transformUrl(url: string): string {
   );
 }
 
-function EditImagePopup({ isModalShown, closeModal, photos, onChange }: EditImagePopupProps) {
+function EditImagePopup({
+  isModalShown,
+  closeModal,
+  photos,
+  maxPhotos,
+  onChange,
+}: EditImagePopupProps) {
   const [tempEditPhotos, setTempEditPhotos] = useState<RecipePhoto[]>(photos);
   const [isAddButtonDisabled, setIsAddButtonDisabled] = useState(false);
   const [message, setMessage] = useState("");
 
-  const maxPhotos = 5;
+  useEffect(() => {
+    if (photos.length === maxPhotos) {
+      setIsAddButtonDisabled(true);
+    }
+  }, [photos, maxPhotos]);
 
   const handleClose = () => {
     closeModal();
