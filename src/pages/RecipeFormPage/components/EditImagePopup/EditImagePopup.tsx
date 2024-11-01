@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { PiPlusBold } from "react-icons/pi";
 import { CgClose } from "react-icons/cg";
-import Card from "../../../components/Card/Card";
-import IconButton from "../../../components/IconButton/IconButton";
-import Button from "../../../components/Button/Button";
-import Modal from "../../../components/Modal/Modal";
+import Card from "../../../../components/Card/Card";
+import IconButton from "../../../../components/IconButton/IconButton";
+import Button from "../../../../components/Button/Button";
+import Modal from "../../../../components/Modal/Modal";
 import { EditImagePopupProps } from "./EditImagePopupProps";
-import { RecipePhoto } from "../../../models";
+import { RecipePhoto } from "../../../../models";
 
 function transformUrl(url: string): string {
   return (

@@ -1,4 +1,4 @@
-import { RecipePhoto } from "../../../models";
+import { RecipePhoto } from "../../../../models";
 
 export interface EditImagePopupProps {
   isModalShown: boolean;
