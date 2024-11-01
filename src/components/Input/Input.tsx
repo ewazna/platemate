@@ -14,15 +14,17 @@ function checkTypeVariation({ basic, raised }: InputProps) {
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (props, ref: ForwardedRef<HTMLInputElement>) => {
     const {
-      children,
       basic,
       raised,
       error,
-      disabled,
+      disabled = false,
       icon,
+      iconPlacement = "left",
       id,
       type,
       value,
+      onChange,
+      handleKeyDown,
       errors,
       ...rest
     } = props;
@@ -31,44 +33,66 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const classes = twMerge(
       className(
-        "flex grow items-center px-11 py-2 rounded-full",
+        "flex grow items-center px-11 py-2 rounded-full w-full",
         "font-roboto font-medium text-pm-black",
-        "placeholder:text-pm-grey-darker focus-visible:outline focus-visible:outline-pm-green-base",
+        "placeholder:text-pm-grey-darker focus-visible:outline-2 focus-visible:outline-pm-green-base",
         {
           "bg-pm-grey-base": isBasic,
           "bg-pm-white drop-shadow-xl": raised,
-          "border border-pm-error-base focus-visible:outline focus-visible:outline-pm-error-base":
+          "border border-pm-error-base focus-visible:outline-2 focus-visible:outline-pm-error-base":
             error,
           "opacity-20 pointer-events-none": disabled,
         },
-        rest.className
-      )
+        rest.className,
+      ),
     );
 
     checkTypeVariation(props);
 
+    const handleWheel = (event: Event) => {
+      event.preventDefault();
+    };
+
+    const handleFocus = (event: React.FocusEvent) =>
+      event.target.addEventListener("wheel", handleWheel, { passive: false });
+
+    const handleBlur = (event: React.FocusEvent) => {
+      event.target.removeEventListener("wheel", handleWheel);
+    };
+
     return (
       <>
-        <label htmlFor={id}>{children}</label>
-        <input
-          type={type ? type : "text"}
-          ref={ref}
-          id={id}
-          value={value}
-          {...rest}
-          className={classes}
-        />
+        <div className="relative w-full">
+          <input
+            type={type ? type : "text"}
+            ref={ref}
+            id={id}
+            value={value}
+            onChange={onChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
+            {...rest}
+            className={classes}
+            autoComplete="off"
+          />
+          <div
+            className={
+              "absolute top-1/2 -translate-y-1/2 text-m mx-1 text-pm-grey-darker " +
+              (iconPlacement === "left" ? "left-4" : "right-4")
+            }
+          >
+            {icon}
+          </div>
+        </div>
         {errors && (
-          <p className="text-pm-error-base text-sm font-medium w-full text-right pr-4">
+          <p className="col-span-2 text-pm-error-base text-sm font-medium w-full text-right pr-4 pt-0.5">
             {errors.message}
           </p>
         )}
-        <div className="absolute top-1/2 left-4 -translate-y-1/2 text-m mx-1 text-pm-grey-darker">
-          {icon}
-        </div>
       </>
     );
-  }
+  },
 );
 
 export default Input;
