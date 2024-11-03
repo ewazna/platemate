@@ -7,5 +7,6 @@ export interface IngredientFormGroupProps {
   control: Control<RecipeFormFields>;
   register: UseFormRegister<RecipeFormFields>;
   handleDelete: () => void;
+  isFormSaving: boolean;
   i: number;
 }

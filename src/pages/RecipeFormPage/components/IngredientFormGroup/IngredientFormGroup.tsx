@@ -14,6 +14,7 @@ function IngredientFormGroup({
   control,
   register,
   watch,
+  isFormSaving,
   i,
   handleDelete,
 }: IngredientFormGroupProps) {
@@ -30,7 +31,7 @@ function IngredientFormGroup({
             control={control}
             name={`ingredients.${i}.name`}
             rules={{ required: true }}
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value, disabled } }) => (
               <SearchInput
                 direction="down"
                 searchData={ingredients}
@@ -38,14 +39,19 @@ function IngredientFormGroup({
                 className="px-4 w-full"
                 value={value}
                 onChange={onChange}
+                disabled={disabled}
                 watch={watch}
-                error={errors.ingredients && errors.ingredients[i]?.name ? true : false}
+                invalid={errors.ingredients && errors.ingredients[i]?.name ? true : false}
               />
             )}
           />
         </div>
 
-        <IconButton className="m-0 px-0 w-8 h-8 justify-center" onClick={handleDelete}>
+        <IconButton
+          className="m-0 px-0 w-8 h-8 justify-center"
+          onClick={handleDelete}
+          disabled={isFormSaving}
+        >
           <PiTrashSimpleBold />
         </IconButton>
 
@@ -58,7 +64,7 @@ function IngredientFormGroup({
               required: true,
               min: 0,
             })}
-            error={errors.ingredients && errors.ingredients[i]?.quantity ? true : false}
+            invalid={errors.ingredients && errors.ingredients[i]?.quantity ? true : false}
           />
         </div>
 
@@ -69,7 +75,7 @@ function IngredientFormGroup({
             rules={{
               required: true,
             }}
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value, disabled } }) => (
               <Select
                 placeholder="Unit"
                 options={Object.values(Unit).map((unit) => {
@@ -77,7 +83,8 @@ function IngredientFormGroup({
                 })}
                 value={value}
                 onChange={onChange}
-                error={errors.ingredients && errors.ingredients[i]?.unit ? true : false}
+                disabled={disabled}
+                invalid={errors.ingredients && errors.ingredients[i]?.unit ? true : false}
               ></Select>
             )}
           />
