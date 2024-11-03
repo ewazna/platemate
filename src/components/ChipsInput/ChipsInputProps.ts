@@ -3,7 +3,7 @@ export interface ChipsInputProps {
   className: string;
   children?: string;
   placeholder: string;
-  direction: "up" | "down";
+  direction?: "up" | "down";
   value: string[];
   disabled?: boolean;
   data: string[];

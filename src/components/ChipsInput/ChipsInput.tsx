@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 import className from "classnames";
 
@@ -6,7 +6,16 @@ import ChipsList from "../ChipsList/ChipsList";
 import { ChipsInputProps } from "./ChipsInputProps";
 
 function modifyResults(result: string, query: string) {
-  return result.replace(query, "<b>$&</b>");
+  const re = new RegExp(
+    query
+      .split("")
+      .map((char: string) => {
+        return char.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
+      })
+      .join("[-\\s.]*"),
+    "ig",
+  );
+  return result.replace(re, "<b>$&</b>");
 }
 
 function ChipsInput({
@@ -23,6 +32,8 @@ function ChipsInput({
   onInputChange,
   ...rest
 }: ChipsInputProps) {
+  const ulRef = useRef<HTMLUListElement>(null);
+
   const suggestionsLength = 4;
 
   const filteredData = data.filter((element) => {
@@ -32,6 +43,7 @@ function ChipsInput({
   const list = filteredData.slice(0, suggestionsLength).map((element) => {
     return (
       <li
+        tabIndex={-1}
         className="w-full mb-1 mx-2 text-black text-left"
         key={element}
         onClick={() => handleAddNewChip(element)}
@@ -54,7 +66,7 @@ function ChipsInput({
       "font-roboto font-medium outline-none text-pm-black",
       "placeholder:text-pm-grey-darker focus-visible:outline-offset-0 focus-visible:outline-2 focus-visible:outline-pm-green-base",
       {
-        "opacity-20 pointer-events-none": disabled,
+        "text-pm-grey-darker pointer-events-none": disabled,
       },
       rest.className,
     ),
@@ -69,7 +81,7 @@ function ChipsInput({
   };
 
   const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
+    if (event.key === "Enter") {
       event.preventDefault();
       const newChip = inputValue.trim().toLowerCase();
       const notEmpty = newChip !== "";
@@ -89,8 +101,8 @@ function ChipsInput({
     onInputChange("");
   };
 
-  const handleBlur = () => {
-    if (!allowNew) {
+  const handleBlur = (e: React.FocusEvent) => {
+    if (!ulRef.current?.contains(e.relatedTarget as Node) && !allowNew) {
       onInputChange("");
     }
   };
@@ -112,11 +124,12 @@ function ChipsInput({
           }
           onChange={handleInputChange}
           onKeyDown={handleInputKeyDown}
-          onBlur={handleBlur}
           value={inputValue}
+          onBlur={handleBlur}
         />
         {inputValue && filteredData.length > 0 ? (
           <ul
+            ref={ulRef}
             className={
               rest.className +
               " flex flex-wrap absolute right-0 z-10 w-full bg-pm-grey-base rounded-[20px] my-1 px-2 py-4 " +
