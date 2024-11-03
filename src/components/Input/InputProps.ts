@@ -6,7 +6,7 @@ export interface InputProps extends ComponentPropsWithoutRef<"input"> {
   basic?: boolean;
   raised?: boolean;
   type?: "text" | "number" | undefined;
-  error?: boolean;
+  invalid?: boolean;
   icon?: React.ReactNode;
   iconPlacement?: "left" | "right";
   errors?: FieldError;

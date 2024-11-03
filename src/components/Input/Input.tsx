@@ -16,7 +16,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const {
       basic,
       raised,
-      error,
+      invalid,
       disabled = false,
       icon,
       iconPlacement = "left",
@@ -34,14 +34,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const classes = twMerge(
       className(
         "flex grow items-center px-11 py-2 rounded-full w-full",
-        "font-roboto font-medium text-pm-black",
+        "font-roboto font-medium text-pm-black ",
         "placeholder:text-pm-grey-darker focus-visible:outline-2 focus-visible:outline-pm-green-base",
         {
           "bg-pm-grey-base": isBasic,
           "bg-pm-white drop-shadow-xl": raised,
           "border border-pm-error-base focus-visible:outline-2 focus-visible:outline-pm-error-base":
-            error,
-          "opacity-20 pointer-events-none": disabled,
+            invalid,
+          "text-pm-grey-darker pointer-events-none": disabled,
         },
         rest.className,
       ),
