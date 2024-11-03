@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Group } from "../../../models";
+import { GroupsMutationParams } from "./GroupsMutationParams";
 
 const groupsApi = createApi({
   reducerPath: "groups",
@@ -28,15 +29,15 @@ const groupsApi = createApi({
           };
         },
       }),
-      changeGroups: builder.mutation<Group[], Group[]>({
+      changeGroups: builder.mutation<Group[], GroupsMutationParams>({
         invalidatesTags: (result: Group[] | undefined) => {
           return result ? [{ type: "Group" as const, id: "All" }] : [];
         },
-        query: (groups) => {
+        query: (body) => {
           return {
             url: "/groups",
             method: "PUT",
-            body: { groups },
+            body,
           };
         },
       }),
