@@ -17,7 +17,7 @@ function TextArea(props: TextAreaProps) {
         "bg-pm-white drop-shadow-xl": raised,
         "border border-pm-error-base focus-visible:outline-2 focus-visible:outline-pm-error-base":
           error,
-        "opacity-20 pointer-events-none": disabled,
+        "text-pm-grey-darker pointer-events-none": disabled,
       },
       rest.className,
     ),
@@ -35,7 +35,7 @@ function TextArea(props: TextAreaProps) {
   return (
     <>
       <label htmlFor={id}>{children}</label>
-      <textarea id={id} value={value} {...rest} className={classes} />
+      <textarea id={id} value={value} {...rest} className={classes} autoComplete="off" />
       <div className="absolute top-1/2 left-4 -translate-y-1/2 text-m mx-1 text-pm-grey-darker">
         {icon}
       </div>
