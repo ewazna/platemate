@@ -12,13 +12,14 @@ function PreparingController({ errors, control, i, handleDelete }: PreparingCont
         control={control}
         name={`steps.${i}.description`}
         rules={{ required: true }}
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { onChange, value, disabled } }) => (
           <div className="flex flex-nowrap w-full items-start">
             <TextArea
               placeholder="Step of prepering"
               className="mr-2 px-4 my-1 min-h-24 rounded-[20px] content-start"
               value={value}
               onChange={onChange}
+              disabled={disabled}
               error={isInvalid ? true : false}
             />
             <IconButton className="mt-2 p-2" onClick={handleDelete}>
