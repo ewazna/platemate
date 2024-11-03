@@ -7,7 +7,7 @@ export interface SearchInputProps {
   searchData: string[] | undefined;
   basic?: boolean;
   raised?: boolean;
-  error?: boolean;
+  invalid?: boolean;
   icon?: React.ReactNode;
   iconPlacement?: "left" | "right";
   errors?: FieldError;

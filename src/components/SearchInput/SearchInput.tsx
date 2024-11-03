@@ -25,7 +25,7 @@ function SearchInput(props: SearchInputProps) {
   let list;
   let filteredData;
   if (value) {
-    filteredData = searchData?.filter((element) => {
+    filteredData = (searchData || []).filter((element) => {
       return !(value as string).includes(element);
     });
 
