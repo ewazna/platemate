@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Recipe, RecipePhoto } from "../../../models";
 import { RecipesFetchOptions } from "./RecipesFetchOptions";
+import { transformRecipeFetchOptions } from "../../../pages/RecipesPage/utils";
 
 function addPhotosToFormData(photos: RecipePhoto[], formData: FormData): void {
   const addedPhotos: File[] = [];
@@ -71,7 +72,7 @@ const recipesApi = createApi({
           return {
             url: "/recipes",
             method: "GET",
-            params: fetchOptions,
+            params: transformRecipeFetchOptions(fetchOptions),
           };
         },
       }),

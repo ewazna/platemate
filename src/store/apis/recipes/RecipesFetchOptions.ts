@@ -1,5 +1,5 @@
 export interface RecipesFetchOptions {
-  filterConfig: string;
+  filterConfig: string | undefined;
   sortConfig: string;
   searchConfig: string;
   selectedGroup: string;
