@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { RecipePhoto } from "../../../../models";
 import { RecipePhotosProps } from "./RecipePhotosProps";
 
-function RecipePhotos({ photos, onChange }: RecipePhotosProps) {
+function RecipePhotos({ photos, onChange, disabled }: RecipePhotosProps) {
   const [isPopupShown, setIsPopupShown] = useState(false);
   const [tempPhotos, setTempPhotos] = useState<RecipePhoto[]>(photos);
   const [isMessageShown, setIsMessageShown] = useState(false);
@@ -72,6 +72,7 @@ function RecipePhotos({ photos, onChange }: RecipePhotosProps) {
         />
         <div className="absolute top-0 left-0 w-full h-64 bg-pm-grey-darker bg-opacity-60"></div>
         <IconButton
+          disabled={disabled}
           className="absolute top-[72px] left-[calc(50%-56px)] h-32 w-32 text-white justify-center"
           onClick={() => document.getElementById("photos-input")!.click()}
         >
@@ -91,6 +92,7 @@ function RecipePhotos({ photos, onChange }: RecipePhotosProps) {
       <>
         <Carousel photos={visiblePhotos} indicators />
         <IconButton
+          disabled={disabled}
           type="button"
           className="absolute top-2 right-2 h-14 w-14 text-white"
           onClick={handleEditClick}
