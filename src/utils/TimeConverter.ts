@@ -25,6 +25,28 @@ export class TimeConverter {
     };
   }
 
+  static toApproximateTimeString(minutes: number): string {
+    if (minutes <= TimeConverter.minutesInHour) {
+      return `${minutes} ${TimeUnit.MIN}`;
+    } else if (minutes > TimeConverter.minutesInHour && minutes <= TimeConverter.minutesInDay) {
+      const hours = minutes / TimeConverter.minutesInHour;
+      const floored = Math.floor(hours);
+      if (hours - floored) {
+        return `${"\u2248"} ${floored} ${TimeUnit.H}`;
+      } else {
+        return `${floored} ${TimeUnit.H}`;
+      }
+    } else {
+      const days = minutes / TimeConverter.minutesInHour / TimeConverter.hoursInDay;
+      const floored = Math.floor(days);
+      if (days - floored) {
+        return `${"\u2248"} ${floored} ${TimeUnit.DAYS}`;
+      } else {
+        return `${floored} ${TimeUnit.DAYS}`;
+      }
+    }
+  }
+
   static toMinutes(timeInUnit: number, timeUnit: TimeUnit): number {
     let time;
     if (timeUnit === "min") {
