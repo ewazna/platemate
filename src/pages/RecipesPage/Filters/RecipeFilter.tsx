@@ -115,12 +115,12 @@ function RecipeFilter({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Modal
-        isModalShown={areFiltersShown}
-        closeModal={closeFiltersForm}
-        className="top-32 h-[calc(100%_-_128px)]"
-      >
+    <Modal
+      isModalShown={areFiltersShown}
+      closeModal={closeFiltersForm}
+      className="top-32 h-[calc(100%_-_128px)]"
+    >
+      <form className="contents" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-start justify-between sticky top-0">
           <h1 className="mb-3">Filters</h1>
           <IconButton onClick={() => closeFiltersForm()} basic className="scale-150">
@@ -274,8 +274,8 @@ function RecipeFilter({
             Apply
           </Button>
         </div>
-      </Modal>
-    </form>
+      </form>
+    </Modal>
   );
 }
 

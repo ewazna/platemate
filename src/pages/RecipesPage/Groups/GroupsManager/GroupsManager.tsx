@@ -77,12 +77,12 @@ function GroupsManager({
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Modal
-          isModalShown={isGroupsManagerShown}
-          closeModal={closeGroupsManager}
-          className="top-32 h-[calc(100%_-_128px)]"
-        >
+      <Modal
+        isModalShown={isGroupsManagerShown}
+        closeModal={closeGroupsManager}
+        className="top-32 h-[calc(100%_-_128px)]"
+      >
+        <form className="contents" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex items-start justify-between sticky top-0">
             <h1 className="mb-3">Groups</h1>
             <IconButton onClick={handleCloseGroupsManager} basic className="scale-150">
@@ -114,8 +114,8 @@ function GroupsManager({
               Apply
             </Button>
           </div>
-        </Modal>
-      </form>
+        </form>
+      </Modal>
       <GroupDialog
         isDialogShown={isDialogShown}
         closeDialog={handleCloseDialog}
