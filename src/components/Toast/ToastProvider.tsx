@@ -27,7 +27,7 @@ function ToastProvider({ children }: PropsWithChildren) {
 
   const closeToast = useCallback(() => {
     setToastState({ ...toastState, isToastShown: false });
-  }, [toastState]);
+  }, [toastState, setToastState]);
 
   useEffect(() => {
     if (toastState.isToastShown) {
@@ -40,14 +40,22 @@ function ToastProvider({ children }: PropsWithChildren) {
     }
   }, [toastState, closeToast]);
 
+  const changeState = useCallback(
+    (type: ToastType, message: string) => {
+      setToastState({ isToastShown: true, type, message });
+    },
+    [setToastState],
+  );
+
   const context: ToastContext = {
-    showToast: (type, message) => setToastState({ isToastShown: true, type, message }),
+    showToast: changeState,
   };
 
   return (
     <ToastContext.Provider value={context}>
       {children}
       <Toast
+        className={toastState.isToastShown === true ? "animate-showUp" : "animate-dissapear"}
         type={toastState.type}
         message={toastState.message}
         ref={toastRef}

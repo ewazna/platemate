@@ -44,9 +44,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         <div className="flex items-start justify-between">
           <div className="flex items-start">
             <div className={iconClasses}>{icon}</div>
-            <div className="flex flex-wrap items-center my-1.5">
-              <span className="w-full text-left mb-1">{message}</span>
-            </div>
+            <span className="w-full text-left my-2">{message}</span>
           </div>
           <IconButton>
             <CgClose className="h-6 w-6" onClick={closeToast} />
