@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+
+  html {
+    @apply bg-pm-white font-roboto h-full;
+  }
+
+  h1 {
+    @apply font-raleway font-black text-pm-black text-xl leading-10;
+  }
+
+  h2 {
+    @apply font-raleway font-black text-pm-black text-l;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+  .no-scrollbar {
+      -ms-overflow-style: none; 
+      scrollbar-width: none; 
+}
+}
