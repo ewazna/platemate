@@ -7,7 +7,6 @@ import { GroupsManagerFormFields } from "./GroupsManagerFormFields";
 import { Group } from "../../../../models";
 import IconButton from "../../../../components/IconButton/IconButton";
 import Button from "../../../../components/Button/Button";
-import Card from "../../../../components/Card/Card";
 import Modal from "../../../../components/Modal/Modal";
 import GroupDialog from "../GroupDialog/GroupDialog";
 import GroupController from "../GroupController/GroupController";
@@ -78,56 +77,45 @@ function GroupsManager({
 
   return (
     <>
-      <Modal isModalShown={isGroupsManagerShown} closeModal={closeGroupsManager}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div
-            className={
-              "absolute inset-0 bg-gray-600 " +
-              (isGroupsManagerShown ? "animate-fadeIn opacity-80" : "animate-fadeOut opacity-0")
-            }
-          ></div>
-          <Card
-            className={
-              "absolute top-32 rounded-b-none h-[calc(100%_-_128px)] px-6 " +
-              (isGroupsManagerShown
-                ? "animate-slideIn translate-y-0"
-                : "animate-slideOut translate-y-full")
-            }
-          >
-            <div className="flex items-start justify-between sticky top-0">
-              <h1 className="mb-3">Groups</h1>
-              <IconButton onClick={handleCloseGroupsManager} basic className="scale-150">
-                <CgClose />
-              </IconButton>
-            </div>
-            <div className="flex flex-nowrap items-center">
-              <span className="text-s mx-2">Add new group</span>
-              <IconButton primary raised className="p-1" type="button" onClick={handleAddInput}>
-                <PiPlusBold className="h-4 w-4" />
-              </IconButton>
-            </div>
-            <div className="h-[calc(100%_-_136px)] overflow-auto pb-4">
-              {fields.map((field, i) => {
-                return (
-                  <GroupController
-                    handleDelete={() => handleDelete(field, i)}
-                    key={field.id}
-                    {...{ control, i, field }}
-                  />
-                );
-              })}
-            </div>
-            <div className="flex justify-between my-4 sticky bottom-4">
-              <Button basic underlined type="button" onClick={discardGroupsChanges}>
-                Discard changes
-              </Button>
-              <Button secondary raised type="submit" className="w-44">
-                Apply
-              </Button>
-            </div>
-          </Card>
-        </form>
-      </Modal>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Modal
+          isModalShown={isGroupsManagerShown}
+          closeModal={closeGroupsManager}
+          className="top-32 h-[calc(100%_-_128px)]"
+        >
+          <div className="flex items-start justify-between sticky top-0">
+            <h1 className="mb-3">Groups</h1>
+            <IconButton onClick={handleCloseGroupsManager} basic className="scale-150">
+              <CgClose />
+            </IconButton>
+          </div>
+          <div className="flex flex-nowrap items-center">
+            <span className="text-s mx-2">Add new group</span>
+            <IconButton primary raised className="p-1" type="button" onClick={handleAddInput}>
+              <PiPlusBold className="h-4 w-4" />
+            </IconButton>
+          </div>
+          <div className="h-[calc(100%_-_136px)] overflow-auto pb-4">
+            {fields.map((field, i) => {
+              return (
+                <GroupController
+                  handleDelete={() => handleDelete(field, i)}
+                  key={field.id}
+                  {...{ control, i, field }}
+                />
+              );
+            })}
+          </div>
+          <div className="flex justify-between my-4 sticky bottom-4">
+            <Button basic underlined type="button" onClick={discardGroupsChanges}>
+              Discard changes
+            </Button>
+            <Button secondary raised type="submit" className="w-44">
+              Apply
+            </Button>
+          </div>
+        </Modal>
+      </form>
       <GroupDialog
         isDialogShown={isDialogShown}
         closeDialog={handleCloseDialog}

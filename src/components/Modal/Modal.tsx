@@ -1,60 +1,93 @@
-import { useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, ForwardedRef } from "react";
 import { createPortal } from "react-dom";
 import { ModalProps } from "./ModalProps";
+import Card from "../Card/Card";
 
-function Modal({ isModalShown, closeModal, children }: ModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null);
+const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
+  (props, ref: ForwardedRef<HTMLDivElement>) => {
+    const { isModalShown, closeModal, className, children } = props;
+    const animationTime = 300;
 
-  useEffect(() => {
-    if (isModalShown) {
-      const modalElement = modalRef.current;
+    const [isPortalCreated, setIsPortalCreated] = useState(false);
+    const modalRef = useRef<HTMLDivElement>(null);
 
-      const focusableElements: NodeListOf<HTMLElement> = modalElement!.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-      );
-      const firstElement = focusableElements[0];
-      const lastElement = focusableElements[focusableElements.length - 1];
+    useEffect(() => {
+      if (isModalShown) {
+        setIsPortalCreated(isModalShown);
+      } else {
+        setTimeout(() => {
+          setIsPortalCreated(isModalShown);
+        }, animationTime);
+      }
+    }, [isModalShown]);
 
-      setTimeout(() => {
-        firstElement.focus({ preventScroll: true });
-      }, 100);
+    useEffect(() => {
+      if (isPortalCreated) {
+        const modalElement = modalRef.current;
 
-      const handleTabKeyPress = (event: KeyboardEvent) => {
-        if (event.key === "Tab") {
-          if (event.shiftKey && document.activeElement === firstElement) {
-            event.preventDefault();
-            lastElement.focus();
-          } else if (!event.shiftKey && document.activeElement === lastElement) {
-            event.preventDefault();
-            firstElement.focus();
+        const focusableElements: NodeListOf<HTMLElement> = modalElement!.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        setTimeout(() => {
+          firstElement.focus({ preventScroll: true });
+        }, 100);
+
+        const handleTabKeyPress = (event: KeyboardEvent) => {
+          if (event.key === "Tab") {
+            if (event.shiftKey && document.activeElement === firstElement) {
+              event.preventDefault();
+              lastElement.focus();
+            } else if (!event.shiftKey && document.activeElement === lastElement) {
+              event.preventDefault();
+              firstElement.focus();
+            }
           }
-        }
-      };
+        };
 
-      const handleEscapeKeyPress = (event: KeyboardEvent) => {
-        if (event.key === "Escape") {
-          closeModal();
-        }
-      };
+        const handleEscapeKeyPress = (event: KeyboardEvent) => {
+          if (event.key === "Escape") {
+            closeModal();
+          }
+        };
 
-      modalElement!.addEventListener("keydown", handleTabKeyPress);
-      modalElement!.addEventListener("keydown", handleEscapeKeyPress);
+        modalElement!.addEventListener("keydown", handleTabKeyPress);
+        modalElement!.addEventListener("keydown", handleEscapeKeyPress);
 
-      return () => {
-        modalElement!.removeEventListener("keydown", handleTabKeyPress);
-        modalElement!.removeEventListener("keydown", handleEscapeKeyPress);
-      };
-    }
-  }, [isModalShown, closeModal]);
+        return () => {
+          modalElement!.removeEventListener("keydown", handleTabKeyPress);
+          modalElement!.removeEventListener("keydown", handleEscapeKeyPress);
+        };
+      }
+    }, [isModalShown, closeModal, isPortalCreated]);
 
-  return isModalShown ? (
-    createPortal(
-      <div ref={modalRef}>{children}</div>,
-      document.querySelector(".container") as Element,
-    )
-  ) : (
-    <></>
-  );
-}
+    const backdropClasses =
+      "absolute inset-0 bg-gray-600 " +
+      (isModalShown ? "animate-fadeIn opacity-80 display-[inherit]" : "animate-fadeOut opacity-0 ");
+
+    const cardClasses =
+      "absolute rounded-b-none px-6 " +
+      (isModalShown
+        ? "animate-slideIn translate-y-0 display-[inherit] "
+        : "animate-slideOut translate-y-full ") +
+      className;
+
+    return isPortalCreated ? (
+      createPortal(
+        <div ref={modalRef}>
+          <div className={backdropClasses}></div>
+          <Card ref={ref} className={cardClasses}>
+            {children}
+          </Card>
+        </div>,
+        document.querySelector(".container") as Element,
+      )
+    ) : (
+      <></>
+    );
+  },
+);
 
 export default Modal;
