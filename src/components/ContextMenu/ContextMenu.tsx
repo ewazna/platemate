@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
@@ -30,7 +30,7 @@ function ContextMenu({ id, children, className }: ContextMenuProps) {
       <IconButton
         ref={contextMenuTrigger}
         type="button"
-        className="px-1"
+        className={`px-1 min-[650px]:scale-125`}
         onClick={handleMenuClick}
         popovertarget={id}
         popovertargetaction="toggle"

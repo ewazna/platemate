@@ -20,7 +20,7 @@ function ExpansionPanel({ title, children, isExpanded, ...rest }: ExpansionPanel
       <button
         type="button"
         onClick={handleClick}
-        className="m-1 max-w-fit flex justify-start items-center cursor-pointer focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-pm-orange-base"
+        className="m-1 max-w-fit flex justify-start items-center cursor-pointer hover:text-pm-orange-base focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-pm-orange-base"
       >
         {title}
         {expanded ? <GoChevronDown className="ml-2" /> : <GoChevronUp className="ml-2" />}

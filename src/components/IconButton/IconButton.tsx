@@ -14,19 +14,20 @@ const IconButton = React.forwardRef<HTMLButtonElement, PropsWithChildren<IconBut
 
     const classes = twMerge(
       className(
-        "flex items-center px-2 py-2 rounded-full hover:bg-pm-grey-base hover:bg-opacity-40 active:shadow-inner focus-visible:outline-none ",
+        "flex items-center px-2 py-2 rounded-full hover:bg-pm-grey-base hover:bg-opacity-60 active:shadow-inner focus-visible:outline-none ",
         "focus-visible:-outline-offset-2 focus-visible:outline-2 ",
         {
           "bg-transparent text-pm-orange-base focus-visible:outline-pm-orange-base ": primary,
           "bg-trannsparent text-pm-green-base focus-visible:outline-pm-green-base ": secondary,
           "bg-transparent text-pm-black focus-visible:outline-pm-orange-base ": isBasic,
           "bg-transparent text-pm-error-base focus-visible:outline-pm-error-base ": error,
-          "drop-shadow-xl active:drop-shadow-none focus-visible:outline-offset-2": raised,
+          "drop-shadow-xl active:drop-shadow-none hover:bg-opacity-100 focus-visible:outline-offset-2":
+            raised,
           "bg-pm-orange-base text-pm-white hover:bg-pm-orange-hover active:bg-pm-white active:text-pm-orange-base":
             raised && primary,
           "bg-pm-green-base text-pm-white hover:bg-pm-green-hover active:bg-pm-white active:text-pm-green-base":
             raised && secondary,
-          "bg-pm-white text-pm-orange-base hover:bg-pm-grey-base active:bg-pm-orange-base active:text-pm-white":
+          "bg-pm-white text-pm-orange-base hover:bg-pm-grey-hover active:bg-pm-orange-base active:text-pm-white":
             raised && isBasic,
           "bg-pm-error-base text-pm-white hover:bg-pm-error-hover active:bg-pm-white active:text-pm-error-base":
             raised && error,

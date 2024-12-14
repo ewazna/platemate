@@ -39,7 +39,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {
           "bg-pm-grey-base": isBasic,
           "bg-pm-white drop-shadow-xl": raised,
-          "border border-pm-error-base focus-visible:outline-2 focus-visible:outline-pm-error-base":
+          "outline outline-1 outline-pm-error-base focus-visible:outline-2 focus-visible:outline-pm-error-base":
             invalid,
           "text-pm-grey-darker pointer-events-none": disabled,
         },

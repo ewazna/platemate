@@ -5,7 +5,7 @@ import { ComponentPropsWithoutRef } from "react";
 export interface InputProps extends ComponentPropsWithoutRef<"input"> {
   basic?: boolean;
   raised?: boolean;
-  type?: "text" | "number" | undefined;
+  type?: "text" | "number" | "password" | undefined;
   invalid?: boolean;
   icon?: React.ReactNode;
   iconPlacement?: "left" | "right";

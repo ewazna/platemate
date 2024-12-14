@@ -12,7 +12,12 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
     const icon = <FaInfo className="text-pm-white h-5 w-5" />;
 
     return (
-      <Modal isModalShown={isDialogShown} closeModal={closeDialog} ref={ref}>
+      <Modal
+        isModalShown={isDialogShown}
+        closeModal={closeDialog}
+        ref={ref}
+        className="bottom-0 min-[550px]:rounded-b-2xl min-[550px]:w-[500px] min-[550px]:bottom-[calc(50%_-_75px)] min-[550px]:left-[calc(50%_-_250px)]"
+      >
         <div className="flex items-start justify-between">
           <div className="flex items-start">
             <div className="flex items-center justify-center min-h-8 min-w-8 my-2 mr-3 rounded-full bg-pm-orange-base">

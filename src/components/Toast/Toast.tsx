@@ -31,7 +31,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     }
 
     const cardClasses =
-      "fixed inset-[unset] bottom-24 left-1/2 -translate-x-1/2 min-h-10 w-[calc(100%_-_24px)] px-2 py-3 m-0 font-roboto rounded-3xl font-medium border-t-4 shadow-lg " +
+      "fixed inset-unset bottom-24 left-1/2 -translate-x-1/2 min-h-10 w-[calc(100%_-_24px)] px-2 py-3 m-0 font-roboto rounded-3xl font-medium border-t-4 shadow-lg md:min-w-1/3 md:w-auto " +
       borderColor +
       " " +
       className;
@@ -44,7 +44,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         <div className="flex items-start justify-between">
           <div className="flex items-start">
             <div className={iconClasses}>{icon}</div>
-            <span className="w-full text-left my-2">{message}</span>
+            <span className="w-full text-left my-2 mr-4">{message}</span>
           </div>
           <IconButton>
             <CgClose className="h-6 w-6" onClick={closeToast} />

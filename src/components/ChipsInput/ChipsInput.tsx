@@ -44,7 +44,7 @@ function ChipsInput({
     return (
       <li
         tabIndex={-1}
-        className="w-full mb-1 mx-2 text-black text-left"
+        className="w-full mb-1 mx-2 text-black text-left cursor-pointer"
         key={element}
         onClick={() => handleAddNewChip(element)}
         dangerouslySetInnerHTML={{ __html: modifyResults(element, inputValue) }}

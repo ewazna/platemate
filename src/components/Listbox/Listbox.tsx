@@ -42,7 +42,7 @@ function Listbox(props: ListboxProps) {
       <li
         key={i}
         className={
-          "flex items-center justify-between w-full my-1 px-3 py-1 text-black rounded-full  " +
+          "flex items-center justify-between w-full my-1 px-3 py-1 text-black rounded-full hover:cursor-pointer  " +
           (value?.includes(option.value) ? selectionColor : bgOptionColor)
         }
         onClick={() => handleClick(option.value)}

@@ -9,7 +9,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     const { children, ...rest } = props;
     const classes = twMerge(
       className(
-        "w-full bg-white p-4 rounded-2xl drop-shadow-[0_-5px_20px_rgba(0,0,0,0.15)]",
+        "w-full bg-white p-4 rounded-2xl drop-shadow-[0_-5px_20px_rgba(0,0,0,0.15)] ",
         rest.className,
       ),
     );

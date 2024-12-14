@@ -6,22 +6,15 @@ import { ChipProps } from "./ChipProps";
 import Button from "../Button/Button";
 
 function Chip(props: ChipProps) {
-  const {
-    label,
-    isSelected,
-    allowDelete,
-    selectionType,
-    onChipClick,
-    ...rest
-  } = props;
+  const { label, isSelected, allowDelete, selectionType, onChipClick, ...rest } = props;
   const classes = twMerge(
     classNames(
       {
         "pointer-events-none": !allowDelete && selectionType === "none",
-        "bg-pm-orange-base text-pm-white border-transparent": isSelected,
+        "bg-pm-orange-base text-pm-white border-transparent hover:bg-pm-orange-hover": isSelected,
       },
-      rest.className
-    )
+      rest.className,
+    ),
   );
 
   function handleClick() {
@@ -29,13 +22,7 @@ function Chip(props: ChipProps) {
   }
 
   return (
-    <Button
-      outlined
-      type="button"
-      className={classes}
-      onClick={handleClick}
-      {...rest}
-    >
+    <Button outlined type="button" className={classes} onClick={handleClick} {...rest}>
       {label}
       <span className="pl-1">{props.allowDelete ? <CgClose /> : ""}</span>
     </Button>
