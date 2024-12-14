@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { useContext } from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import RecipeItemPage from "./pages/RecipeItemPage/RecipeItemPage";
+import RecipesPage from "./pages/RecipesPage/RecipesPage";
+import Root from "./Root";
+import RecipeFormPage from "./pages/RecipeFormPage/RecipeFormPage";
+import HomePage from "./pages/HomePage/HomePage";
+import CreateAccountPage from "./pages/CreateAccountPage/CreateAccountPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import GuardedRoute from "./components/GuardedRoute/GuardedRoute";
+import AuthContext from "./components/AuthProvider/AuthProvider";
+import Spinner from "./components/Spinner/Spinner";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const { currentUser, isFetching } = useContext(AuthContext);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+  return !isFetching ? (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<GuardedRoute isAllowed={!currentUser} redirectPath="/recipes" />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/register" element={<CreateAccountPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Route>
+        <Route element={<Root />}>
+          <Route element={<GuardedRoute isAllowed={!!currentUser} redirectPath="/" />}>
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/recipes" element={<RecipesPage />} />
+            <Route path="/recipes/new" element={<RecipeFormPage />} />
+            <Route path="/recipes/:recipeId/edit" element={<RecipeFormPage />} />
+          </Route>
+          <Route path="/recipes/:recipeId" element={<RecipeItemPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  ) : (
+    <div className="flex w-ful h-full justify-center items-center">
+      <Spinner color="#FF8A00" className="h-20 w-20"></Spinner>
+    </div>
+  );
+};
 
-export default App
+export default App;
