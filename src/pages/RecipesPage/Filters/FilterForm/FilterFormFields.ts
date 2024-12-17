@@ -1,4 +1,4 @@
-import { MealCategory, Difficulty } from "../../../models";
+import { MealCategory, Difficulty } from "../../../../models";
 
 export type FilterFormFields = {
   diets: string[];
