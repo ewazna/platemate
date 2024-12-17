@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
-import IconButton from "../../../../components/IconButton/IconButton";
-import Button from "../../../../components/Button/Button";
-import Input from "../../../../components/Input/Input";
+import IconButton from "../../../components/IconButton/IconButton";
+import Button from "../../../components/Button/Button";
+import Input from "../../../components/Input/Input";
 import { CgClose } from "react-icons/cg";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ResetPasswordModalProps } from "./ResetPasswordModalProps";
-import ToastContext from "../../../../components/Toast/ToastProvider";
-import AuthContext from "../../../../components/AuthProvider/AuthProvider";
-import Modal from "../../../../components/Modal/Modal";
+import ToastContext from "../../../components/Toast/ToastProvider";
+import AuthContext from "../../../components/AuthProvider/AuthProvider";
+import Modal from "../../../components/Modal/Modal";
 
 interface PasswordResetForm {
   email: string;

@@ -11,7 +11,7 @@ import IconButton from "../../components/IconButton/IconButton";
 import Input from "../../components/Input/Input";
 import AuthContext from "../../components/AuthProvider/AuthProvider";
 import ToastContext from "../../components/Toast/ToastProvider";
-import ResetPasswordModal from "./components/ResetPasswordModal/ResetPasswordModal";
+import ResetPasswordModal from "../common/ResetPasswordModal/ResetPasswordModal";
 
 function LoginPage() {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
