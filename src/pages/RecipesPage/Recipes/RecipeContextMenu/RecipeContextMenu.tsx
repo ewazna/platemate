@@ -7,7 +7,7 @@ import {
 } from "../../../../store/apis/recipes/recipesApi";
 import { RecipeContextMenuProps } from "./RecipeContextMenuProps";
 
-function RecipeContextMenu({ recipe }: RecipeContextMenuProps) {
+function RecipeContextMenu({ recipe, className }: RecipeContextMenuProps) {
   const [removeRecipeItem] = useRemoveRecipeItemMutation();
   const [changeRecipeItem] = useChangeRecipeItemMutation();
 
@@ -32,7 +32,7 @@ function RecipeContextMenu({ recipe }: RecipeContextMenuProps) {
   }
 
   return (
-    <ContextMenu id={"menu-" + recipe._id} className="w-40">
+    <ContextMenu id={"menu-" + recipe._id} className={`w-40 + ${className}`}>
       <Button
         type="button"
         className="normal-case px-3 w-36 h-8 my-1 drop-shadow-none bg-pm-grey-light justify-start text-start"

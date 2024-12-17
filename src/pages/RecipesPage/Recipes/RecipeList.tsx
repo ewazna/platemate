@@ -14,7 +14,7 @@ const RecipeList = React.forwardRef<HTMLDivElement, RecipeListProps>(
         {renderedRecipes}
       </div>
     );
-  }
+  },
 );
 
 export default RecipeList;

@@ -12,6 +12,7 @@ import {
   PiHeartStraightBold,
   PiHeartStraightFill,
 } from "react-icons/pi";
+import { useMediaQuery } from "../../../hooks/useMediaQuery/useMediaQuery";
 
 function convertTime(time: number, longTime: number): { convertedTime: string; unit: TimeUnit } {
   let convertedTime: string;
@@ -40,10 +41,11 @@ function convertTime(time: number, longTime: number): { convertedTime: string; u
   return { convertedTime, unit: unitTime };
 }
 
-function convertUrl(url: string): string {
+function convertUrl(url: string, photoWidth: string): string {
   return (
     url.substring(0, url.indexOf("upload") + 7) +
-    "c_auto,w_160" +
+    "c_auto,w_" +
+    photoWidth +
     url.slice(url.indexOf("upload") + 6)
   );
 }
@@ -72,8 +74,10 @@ function getTimeColor(time: number, shortTime: number, longTime: number): string
 
 function RecipeListItem({ recipe }: RecipeListItemProps) {
   const navigate = useNavigate();
+  const morethan450px = useMediaQuery("(min-width:450px)");
   const [changeRecipeItem] = useChangeRecipeItemMutation();
 
+  const photoWidth = morethan450px ? "360" : "190";
   const heartIcon = recipe.favourite ? <PiHeartStraightFill /> : <PiHeartStraightBold />;
   const shortTime = 30;
   const longTime = 60;
@@ -81,8 +85,8 @@ function RecipeListItem({ recipe }: RecipeListItemProps) {
   const timeColor = getTimeColor(recipe.time, shortTime, longTime);
   const { convertedTime, unit } = convertTime(recipe.time, longTime);
 
-  const difficultyClasses = `w-1/2 flex justify-start items-center text-xs ${difficultyColor}`;
-  const timeClasses = `flex justify-start items-center text-xs ${timeColor}`;
+  const difficultyClasses = `w-1/2 flex justify-start items-center text-xs ${difficultyColor} min-[450px]:w-24 min-[450px]:text-[0.9rem] min-[650px]:text-s`;
+  const timeClasses = `flex justify-start items-center text-xs ${timeColor} min-[450px]:text-[0.9rem] min-[650px]:text-s`;
 
   const handleClick = () => {
     navigate(`/recipes/${recipe._id}`);
@@ -100,19 +104,22 @@ function RecipeListItem({ recipe }: RecipeListItemProps) {
     <>
       <figure
         tabIndex={0}
-        className="flex flex-col justify-between pb-1 relative w-40 h-48 mb-4 mx-1 rounded-xl bg-pm-grey-light shadow-md focus-visible:outline-2 focus-visible:outline-pm-orange-base focus-visible:shadow-none"
+        className="flex flex-col justify-between pb-1 relative rounded-xl bg-pm-grey-light shadow-md cursor-pointer min-h-48 min-[450px]:h-56 min-[550px]:h-64 min-[650px]:h-[312px] focus-visible:outline-2 focus-visible:outline-pm-orange-base focus-visible:shadow-none "
         onClick={handleClick}
       >
         <div>
-          <IconButton className="absolute top-1 right-1 text-white" onClick={handleFavourites}>
+          <IconButton
+            className="absolute top-1 right-1 text-white min-[450px]:scale-125 min-[450px]:top-2 min-[450px]:right-2 min-[650px]:scale-[1.75] min-[650px]:top-4 min-[650px]:right-4 min-[650px]:p-1"
+            onClick={handleFavourites}
+          >
             {heartIcon}
           </IconButton>
           <img
-            src={convertUrl(recipe.photos[0].url)}
+            src={convertUrl(recipe.photos[0].url, photoWidth)}
             alt={recipe.title + " photo"}
-            className="rounded-t-xl h-28 w-full object-cover"
+            className="rounded-t-xl w-full h-28 object-cover min-[450px]:h-32 min-[550px]:h-40 min-[650px]:h-52 lg:h-52"
           />
-          <div className="flex justify-start m-1">
+          <div className="flex justify-start m-1 mx-2 min-[650px]:mt-2 min-[650px]:mx-3">
             <span className={difficultyClasses}>
               <PiDiamondBold />
               <div className="pl-1">{recipe.difficulty}</div>
@@ -123,8 +130,8 @@ function RecipeListItem({ recipe }: RecipeListItemProps) {
             </span>
           </div>
         </div>
-        <div className="flex justify-between items-end ml-2 mr-1 ">
-          <figcaption className="font-raleway font-bold text-s text-pm-black text-left line-clamp-2">
+        <div className="flex justify-between items-end ml-2 mr-1 min-[650px]:ml-3 min-[650px]:mr-2">
+          <figcaption className="font-raleway font-bold text-s text-pm-black text-left line-clamp-2 min-[650px]:text-m">
             {recipe.title}
           </figcaption>
           <RecipeContextMenu recipe={recipe} />
