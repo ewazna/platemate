@@ -3,7 +3,7 @@ import IconButton from "../../../../components/IconButton/IconButton";
 import { GroupInputProps } from "./GroupInputProps";
 import { RiDeleteBin7Line } from "react-icons/ri";
 
-function GroupInput({ value, onChange, onBlur, handleDelete }: GroupInputProps) {
+function GroupInput({ invalid, value, onChange, onBlur, handleDelete }: GroupInputProps) {
   return (
     <div className="flex flex-nowrap w-full my-2">
       <Input
@@ -11,9 +11,10 @@ function GroupInput({ value, onChange, onBlur, handleDelete }: GroupInputProps) 
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        className="text-s px-4 ml-1 mr-2"
+        invalid={invalid}
+        className="text-s px-4 ml-1"
       />
-      <IconButton onClick={handleDelete}>
+      <IconButton onClick={handleDelete} className="ml-2">
         {<RiDeleteBin7Line className="h-6 w-6 text-pm-grey-darker" />}
       </IconButton>
     </div>

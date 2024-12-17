@@ -23,7 +23,12 @@ function GroupsManager({
   const [shouldShowDialog, setShouldShowDialog] = useState(false);
   const [isDialogShown, setIsDialogShown] = useState(false);
 
-  const { handleSubmit, control, reset } = useForm<GroupsManagerFormFields>({
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<GroupsManagerFormFields>({
     defaultValues,
   });
 
@@ -80,33 +85,41 @@ function GroupsManager({
       <Modal
         isModalShown={isGroupsManagerShown}
         closeModal={closeGroupsManager}
-        className="top-32 h-[calc(100%_-_128px)]"
+        className="top-32 h-[calc(100%_-_128px)] min-[550px]:w-[500px] min-[550px]:min-h-[375px] min-[550px]:h-auto min-[550px]:max-h-[calc(100%_-_300px)] min-[550px]:rounded-b-2xl min-[550px]:top-unset min-[550px]:unset"
       >
-        <form className="contents" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex items-start justify-between sticky top-0">
-            <h1 className="mb-3">Groups</h1>
-            <IconButton onClick={handleCloseGroupsManager} basic className="scale-150">
-              <CgClose />
-            </IconButton>
+        <form className="flex flex-col h-full justify-between" onSubmit={handleSubmit(onSubmit)}>
+          <div className="h-[calc(100%_-_64px)]">
+            <div className="flex items-start justify-between sticky top-0">
+              <h1 className="mb-3">Groups</h1>
+              <IconButton onClick={handleCloseGroupsManager} basic className="scale-150">
+                <CgClose />
+              </IconButton>
+            </div>
+            <div className="flex flex-nowrap items-center pb-2">
+              <span className="text-s mx-2">Add new group</span>
+              <IconButton primary raised className="p-1" type="button" onClick={handleAddInput}>
+                <PiPlusBold className="h-4 w-4" />
+              </IconButton>
+            </div>
+            <div className="h-[calc(100%_-_100px)] overflow-auto pb-4 min-[450px]:min-h-[216px] min-[450px]:h-auto min-[450px]:max-h-[390px]">
+              {fields.map((field, i) => {
+                return (
+                  <GroupController
+                    handleDelete={() => handleDelete(field, i)}
+                    key={field.id}
+                    errors={errors}
+                    {...{ control, i, field }}
+                  />
+                );
+              })}
+              {errors.groups && (
+                <p className="text-pm-error-base text-sm font-medium w-full text-right pr-14 pt-0.5">
+                  All groups must have a name
+                </p>
+              )}
+            </div>
           </div>
-          <div className="flex flex-nowrap items-center">
-            <span className="text-s mx-2">Add new group</span>
-            <IconButton primary raised className="p-1" type="button" onClick={handleAddInput}>
-              <PiPlusBold className="h-4 w-4" />
-            </IconButton>
-          </div>
-          <div className="h-[calc(100%_-_136px)] overflow-auto pb-4">
-            {fields.map((field, i) => {
-              return (
-                <GroupController
-                  handleDelete={() => handleDelete(field, i)}
-                  key={field.id}
-                  {...{ control, i, field }}
-                />
-              );
-            })}
-          </div>
-          <div className="flex justify-between my-4 sticky bottom-4">
+          <div className="flex w-full mb-3 justify-between pt-3 min-[450px]:pt-6">
             <Button basic underlined type="button" onClick={discardGroupsChanges}>
               Discard changes
             </Button>
