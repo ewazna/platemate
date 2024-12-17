@@ -8,15 +8,26 @@ export class TimeConverter {
   static toTimeAndUnit(minutes: number): { timeInUnit: number; timeUnit: TimeUnit } {
     let timeInUnit;
     let timeUnit;
-    if (minutes <= TimeConverter.minutesInHour) {
+
+    if (minutes >= TimeConverter.minutesInDay) {
+      if (minutes % TimeConverter.minutesInDay === 0) {
+        timeInUnit = minutes / TimeConverter.minutesInHour / TimeConverter.hoursInDay;
+        timeUnit = TimeUnit.DAYS;
+      } else {
+        timeInUnit = minutes / TimeConverter.minutesInHour;
+        timeUnit = TimeUnit.H;
+      }
+    } else if (minutes > TimeConverter.minutesInHour && minutes <= TimeConverter.minutesInDay) {
+      if (minutes % TimeConverter.minutesInHour === 0) {
+        timeInUnit = minutes / TimeConverter.minutesInHour;
+        timeUnit = TimeUnit.H;
+      } else {
+        timeInUnit = minutes;
+        timeUnit = TimeUnit.MIN;
+      }
+    } else {
       timeInUnit = minutes;
       timeUnit = TimeUnit.MIN;
-    } else if (minutes > TimeConverter.minutesInHour && minutes <= TimeConverter.minutesInDay) {
-      timeInUnit = minutes / TimeConverter.minutesInHour;
-      timeUnit = TimeUnit.H;
-    } else {
-      timeInUnit = minutes / TimeConverter.minutesInHour / TimeConverter.hoursInDay;
-      timeUnit = TimeUnit.DAYS;
     }
 
     return {
