@@ -1,12 +1,12 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { Group } from "../../../models";
 import { GroupsMutationParams } from "./GroupsMutationParams";
 
+import baseQueryWithAuth from "../baseQuery";
+
 const groupsApi = createApi({
   reducerPath: "groups",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
-  }),
+  baseQuery: baseQueryWithAuth,
   tagTypes: ["Group"],
   endpoints(builder) {
     return {

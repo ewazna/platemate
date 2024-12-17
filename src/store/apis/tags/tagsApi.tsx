@@ -1,11 +1,11 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { Tag } from "../../../models";
+
+import baseQueryWithAuth from "../baseQuery";
 
 const tagsApi = createApi({
   reducerPath: "tags",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
-  }),
+  baseQuery: baseQueryWithAuth,
   endpoints(builder) {
     return {
       fetchTags: builder.query<Tag[], string>({

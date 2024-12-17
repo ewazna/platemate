@@ -1,7 +1,9 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { Recipe, RecipePhoto } from "../../../models";
 import { RecipesFetchOptions } from "./RecipesFetchOptions";
 import { transformRecipeFetchOptions } from "../../../pages/RecipesPage/utils";
+
+import baseQueryWithAuth from "../baseQuery";
 
 function addPhotosToFormData(photos: RecipePhoto[], formData: FormData): void {
   const addedPhotos: File[] = [];
@@ -50,9 +52,7 @@ function recipeToFormData(recipe: Recipe): FormData {
 
 const recipesApi = createApi({
   reducerPath: "recipes",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
-  }),
+  baseQuery: baseQueryWithAuth,
   tagTypes: ["Recipe", "Group"],
   endpoints(builder) {
     return {
@@ -104,7 +104,7 @@ const recipesApi = createApi({
       }),
       changeRecipeItem: builder.mutation<Recipe, Recipe>({
         invalidatesTags: (result: Recipe | undefined) => {
-          return result ? [{ type: "Recipe", id: result._id }] : [];
+          return result ? [{ type: "Recipe", id: "All" }] : [];
         },
         query: (recipe) => {
           return {
@@ -117,7 +117,7 @@ const recipesApi = createApi({
       }),
       removeRecipeItem: builder.mutation<Recipe, Recipe>({
         invalidatesTags: (result: Recipe | undefined) => {
-          return result ? [{ type: "Recipe" as const, id: "All" }] : [];
+          return result ? [{ type: "Recipe", id: result._id }] : [];
         },
         query: (recipe) => {
           return {

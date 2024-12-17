@@ -1,11 +1,11 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { Ingredient } from "../../../models";
+
+import baseQueryWithAuth from "../baseQuery";
 
 const ingredientsApi = createApi({
   reducerPath: "ingredients",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
-  }),
+  baseQuery: baseQueryWithAuth,
   endpoints(builder) {
     return {
       fetchIngredients: builder.query<Ingredient[], string>({
