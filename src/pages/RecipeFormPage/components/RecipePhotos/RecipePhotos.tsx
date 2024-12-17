@@ -8,13 +8,13 @@ import { RecipePhotosProps } from "./RecipePhotosProps";
 
 function RecipePhotos({ photos, onChange, disabled }: RecipePhotosProps) {
   const [isPopupShown, setIsPopupShown] = useState(false);
-  const [tempPhotos, setTempPhotos] = useState<RecipePhoto[]>(photos);
+  const [tempPhotos, setTempPhotos] = useState<RecipePhoto[]>([...photos]);
   const [isMessageShown, setIsMessageShown] = useState(false);
   const maxPhotos = 5;
 
   useEffect(() => {
-    onChange(tempPhotos);
-  }, [tempPhotos, onChange]);
+    setTempPhotos(photos);
+  }, [photos]);
 
   const handleAddPhotos = async (newPhotos: FileList | null) => {
     if (!newPhotos) {
@@ -44,10 +44,12 @@ function RecipePhotos({ photos, onChange, disabled }: RecipePhotosProps) {
     );
 
     setTempPhotos(readedFiles);
+    onChange(readedFiles);
   };
 
   const handleEditPhotos = (newPhotos: RecipePhoto[]) => {
     setTempPhotos([...newPhotos]);
+    onChange([...newPhotos]);
   };
 
   const handleClosePopup = () => {
@@ -68,12 +70,12 @@ function RecipePhotos({ photos, onChange, disabled }: RecipePhotosProps) {
         <img
           src="/images/new_photo.jpg"
           alt="new photo"
-          className="w-full h-64 object-cover drop-shadow-xl blur-sm"
+          className="w-full h-64 object-cover drop-shadow-xl blur-sm min-[450px]:max-[768px]:h-[375px] md:h-[480px] md:rounded-b-2xl"
         />
-        <div className="absolute top-0 left-0 w-full h-64 bg-pm-grey-darker bg-opacity-60"></div>
+        <div className="absolute top-0 left-0 w-full h-64 bg-pm-grey-darker bg-opacity-60 min-[450px]:max-[768px]:h-[375px] md:h-[480px] md:rounded-b-2xl"></div>
         <IconButton
           disabled={disabled}
-          className="absolute top-[72px] left-[calc(50%-56px)] h-32 w-32 text-white justify-center"
+          className="absolute top-[calc(128px_/_2)] left-[calc(50%-56px)] h-32 w-32 text-white justify-center min-[450px]:max-[768px]:top-[calc(375px_/_2_-_64px)] md:top-[calc(480px_/_2_-_64px)]"
           onClick={() => document.getElementById("photos-input")!.click()}
         >
           <RiImageAddFill className="h-24 w-24" />
@@ -82,6 +84,7 @@ function RecipePhotos({ photos, onChange, disabled }: RecipePhotosProps) {
           type="file"
           id="photos-input"
           className="hidden"
+          accept="image/*"
           multiple
           onChange={(e) => handleAddPhotos(e.currentTarget.files)}
         />
@@ -90,15 +93,20 @@ function RecipePhotos({ photos, onChange, disabled }: RecipePhotosProps) {
   } else {
     content = (
       <>
-        <Carousel photos={visiblePhotos} indicators />
+        <Carousel
+          photos={visiblePhotos}
+          indicators
+          className="min-[450px]:max-[768px]:h-[375px] md:h-[480px]"
+        />
         <IconButton
           disabled={disabled}
           type="button"
-          className="absolute top-2 right-2 h-14 w-14 text-white"
+          className="absolute top-2 right-2 h-14 w-14 text-white md:h-24 md:w-24"
           onClick={handleEditClick}
         >
-          <RiImageEditFill className="h-14 w-14" />
+          <RiImageEditFill className="h-14 w-14 md:h-24 md:w-24" />
         </IconButton>
+
         <EditImagePopup
           isModalShown={isPopupShown}
           closeModal={handleClosePopup}

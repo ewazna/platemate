@@ -25,8 +25,8 @@ function IngredientFormGroup({
 
   return (
     <div className="mb-4">
-      <div className="grid grid-cols-[1fr_1fr_110px_32px] gap-1">
-        <div className="col-span-3 relative">
+      <div className="grid grid-cols-[1fr_1fr_110px_32px] gap-1 md:grid-cols-[1fr_20%_20%_32px] md:gap-2">
+        <div className="col-span-3 relative md:col-span-1">
           <Controller
             control={control}
             name={`ingredients.${i}.name`}
@@ -48,17 +48,18 @@ function IngredientFormGroup({
         </div>
 
         <IconButton
-          className="m-0 px-0 w-8 h-8 justify-center"
+          className="m-0 px-0 w-10 h-10 justify-center md:hidden"
           onClick={handleDelete}
           disabled={isFormSaving}
         >
-          <PiTrashSimpleBold />
+          <PiTrashSimpleBold className="w-5 h-5" />
         </IconButton>
 
-        <div className="col-span-2">
+        <div className="col-span-2 md:col-span-1">
           <Input
             type="number"
             placeholder="Qty"
+            disabled={isFormSaving}
             className="px-4 w-full"
             {...register(`ingredients.${i}.quantity`, {
               required: true,
@@ -89,6 +90,13 @@ function IngredientFormGroup({
             )}
           />
         </div>
+        <IconButton
+          className="hidden m-0 px-0 w-10 h-10 justify-center md:flex "
+          onClick={handleDelete}
+          disabled={isFormSaving}
+        >
+          <PiTrashSimpleBold className="w-5 h-5" />
+        </IconButton>
       </div>
       {errors.ingredients && errors.ingredients[i] && (
         <p className="text-pm-error-base text-sm font-medium w-full text-right pr-14 pt-0.5">

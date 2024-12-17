@@ -16,7 +16,7 @@ function PreparingController({ errors, control, i, handleDelete }: PreparingCont
           <div className="flex flex-nowrap w-full items-start">
             <TextArea
               placeholder="Step of prepering"
-              className="mr-2 px-4 my-1 min-h-24 rounded-[20px] content-start"
+              className="mr-2 px-4 my-1 min-h-[132px] line-clamp-5 rounded-[20px] content-start focus-visible:line-clamp-none"
               value={value}
               onChange={onChange}
               disabled={disabled}
