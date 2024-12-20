@@ -35,8 +35,12 @@ function ShareRecipe({ isShareRecipeShown, closeShareRecipe }: ShareRecipeProps)
   };
 
   return (
-    <Modal isModalShown={isShareRecipeShown} closeModal={closeShareRecipe} className="bottom-0">
-      <div className="flex items-start justify-between sticky top-0">
+    <Modal
+      isModalShown={isShareRecipeShown}
+      closeModal={closeShareRecipe}
+      className="bottom-0 min-[550px]:bottom-unset min-[550px]:w-[500px] min-[550px]:rounded-b-2xl"
+    >
+      <div className="flex items-start justify-between">
         <h2 className="mb-3">Share a recipe</h2>
         <IconButton onClick={handleClose} basic className="scale-150">
           <CgClose />
@@ -44,18 +48,18 @@ function ShareRecipe({ isShareRecipeShown, closeShareRecipe }: ShareRecipeProps)
       </div>
       <div className="mb-8">
         <div className="flex justify-between items-center mt-4">
-          <Input value={shareUrl} className="px-4 mr-2" />
-          <IconButton onClick={handleCopy}>
+          <Input value={shareUrl} readOnly={true} className="px-4" />
+          <IconButton onClick={handleCopy} className="ml-1">
             <LuCopy />
           </IconButton>
         </div>
         {isMessageShown && (
           <p className="absolute right-4 text-pm-success text-sm font-medium text-right w-full my-1 pr-4">
-            Copied sucesfully
+            Copied successfully
           </p>
         )}
       </div>
-      <div className="flex mb-4 justify-evenly">
+      <div className="flex flex-nowrap mb-4 justify-evenly">
         <EmailShareButton
           url={shareUrl}
           className="rounded-full focus-visible:outline-offset-4 focus-visible:outline-2"

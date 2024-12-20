@@ -1,5 +1,6 @@
 import { Recipe } from "../../../../models";
 
-export interface PreparingListProps {
+export interface RecipeIngredientsProps {
   recipe: Recipe;
+  className: string;
 }

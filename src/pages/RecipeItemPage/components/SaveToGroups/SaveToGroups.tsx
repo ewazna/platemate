@@ -40,7 +40,11 @@ function SaveToGroups({
   };
 
   return (
-    <Modal isModalShown={areGroupsShown} closeModal={closeGroups} className="bottom-0">
+    <Modal
+      isModalShown={areGroupsShown}
+      closeModal={closeGroups}
+      className="bottom-0 min-[550px]:bottom-unset min-[550px]:w-[500px] min-[550px]:rounded-b-2xl"
+    >
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-start justify-between sticky top-0">
           <h2 className="mb-3">Save to groups</h2>
