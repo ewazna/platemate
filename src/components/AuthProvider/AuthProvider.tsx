@@ -14,6 +14,7 @@ import {
   FacebookAuthProvider,
   signInWithRedirect,
   sendEmailVerification,
+  signInWithPopup,
 } from "firebase/auth";
 
 interface AuthState {
@@ -22,7 +23,7 @@ interface AuthState {
   sendVerificationEmail: (user: User) => Promise<void>;
   login: (email: string, password: string) => Promise<UserCredential>;
   loginWithGoogle: () => Promise<void>;
-  loginWithFacebook: () => Promise<void>;
+  loginWithFacebook: () => Promise<UserCredential>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   updateUserData: (user: User, name: string) => Promise<void>;
@@ -44,7 +45,7 @@ function login(email: string, password: string) {
 
 function loginWithFacebook() {
   const provider = new FacebookAuthProvider();
-  return signInWithRedirect(auth, provider);
+  return signInWithPopup(auth, provider);
 }
 
 function loginWithGoogle() {
