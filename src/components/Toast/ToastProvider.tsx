@@ -7,7 +7,6 @@ interface ToastContext {
 }
 
 interface ToastState {
-  isToastShown: boolean;
   type: ToastType;
   message: string;
 }
@@ -17,34 +16,35 @@ type HTMLPopoverElement = HTMLDivElement & { showPopover: () => void; hidePopove
 const ToastContext = createContext<ToastContext>({} as ToastContext);
 
 function ToastProvider({ children }: PropsWithChildren) {
+  const [isToastShown, setIsToastShown] = useState(false);
   const [toastState, setToastState] = useState<ToastState>({
-    isToastShown: false,
     type: "info",
     message: "",
   });
   const toastRef = useRef<HTMLPopoverElement>(null);
   const timeout = 5000;
 
-  const closeToast = useCallback(() => {
-    setToastState({ ...toastState, isToastShown: false });
-  }, [toastState, setToastState]);
+  const closeToast = () => {
+    setIsToastShown(false);
+  };
 
   useEffect(() => {
-    if (toastState.isToastShown) {
+    if (isToastShown) {
       toastRef.current?.showPopover();
-      setTimeout(() => {
-        closeToast();
-      }, timeout);
     } else {
       toastRef.current?.hidePopover();
     }
-  }, [toastState, closeToast]);
+  }, [isToastShown]);
 
   const changeState = useCallback(
     (type: ToastType, message: string) => {
-      setToastState({ isToastShown: true, type, message });
+      setIsToastShown(true);
+      setToastState({ type, message });
+      setTimeout(() => {
+        setIsToastShown(false);
+      }, timeout);
     },
-    [setToastState],
+    [setIsToastShown, setToastState],
   );
 
   const context: ToastContext = {
@@ -55,7 +55,7 @@ function ToastProvider({ children }: PropsWithChildren) {
     <ToastContext.Provider value={context}>
       {children}
       <Toast
-        className={toastState.isToastShown === true ? "animate-showUp" : "animate-dissapear"}
+        className={isToastShown === true ? "animate-showUp" : "animate-dissapear"}
         type={toastState.type}
         message={toastState.message}
         ref={toastRef}
