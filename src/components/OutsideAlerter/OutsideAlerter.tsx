@@ -3,7 +3,7 @@ import { OutsideAlerterProps } from "./OutsideAlerterProps";
 
 interface useOutsideAlerterProps {
   handleOutsideClick: () => void;
-  triggerRef: RefObject<HTMLElement>;
+  triggerRef?: RefObject<HTMLElement>;
   wrapperRef: RefObject<HTMLDivElement>;
 }
 
@@ -12,9 +12,9 @@ function useOutsideAlerter({ handleOutsideClick, triggerRef, wrapperRef }: useOu
     function globalClickHandller(e: Event) {
       if (
         wrapperRef.current &&
-        triggerRef.current &&
         !wrapperRef.current.contains(e.target as Node) &&
-        !triggerRef.current.contains(e.target as Node)
+        (!triggerRef?.current ||
+          (triggerRef?.current && !triggerRef.current.contains(e.target as Node)))
       ) {
         handleOutsideClick();
       }
