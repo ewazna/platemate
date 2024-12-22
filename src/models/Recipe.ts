@@ -5,6 +5,7 @@ import { MealCategory } from "./MealCategoryEnum";
 import { RecipePhoto } from "./RecipePhoto";
 
 export interface Recipe {
+  userId?: string;
   _id?: string;
   creationDate?: string;
   title: string;
