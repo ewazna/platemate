@@ -70,17 +70,19 @@ const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
     const cardClasses =
       "absolute rounded-b-none px-6 " +
       (isModalShown
-        ? "animate-slideIn translate-y-0 display-[inherit] "
-        : "animate-slideOut translate-y-full ") +
+        ? "animate-slideIn min-[550px]:animate-popupShow translate-y-0 display-[inherit] "
+        : "animate-slideOut min-[550px]:animate-none translate-y-full min-[550px]:hidden ") +
       className;
 
     return isPortalCreated ? (
       createPortal(
         <div ref={modalRef}>
           <div className={backdropClasses}></div>
-          <Card ref={ref} className={cardClasses}>
-            {children}
-          </Card>
+          <div className="absolute inset-0 flex justify-center items-center">
+            <Card ref={ref} className={cardClasses}>
+              {children}
+            </Card>
+          </div>
         </div>,
         document.querySelector(".container") as Element,
       )

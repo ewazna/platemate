@@ -21,7 +21,7 @@ function RecipeFilterModal({
 
   const modalClasses =
     "top-32 h-[calc(100%_-_128px)] " +
-    (areFiltersShown ? "min-[550px]:animate-slideInDown" : "min-[550px]:animate-slideOutDown ");
+    (areFiltersShown ? "min-[550px]:animate-slideIn" : "min-[550px]:animate-slideOut ");
 
   const elementScroll = useRef<HTMLDivElement>(null);
   const div = elementScroll?.current;

@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      spacing:{
+        'unset':'unset'
+      },
       colors: {
         'pm-white': '#FCFAF8',
         'pm-black': '#140F1F',
@@ -14,7 +17,7 @@ export default {
           'base': '#E6E6E6',
           'dark': '#C4C4C4',
           'darker': '#A5A5A5',
-          'hover': '#E5E2E3',
+          'hover': '#EBEBEB',
         },
         'pm-orange': {
           'lighter': '#FFF3E0',
@@ -85,20 +88,6 @@ export default {
           opacity: "0%",
           scale: "50%"
         }},
-        slideOut: {
-          '0%': {
-            transform:'translateY(0%)',
-            display: 'inherit'
-          },
-          '99%':  {
-            transform:'translateY(100%)',
-            display: 'inherit'
-          },
-          '100%': {
-            transform:'translateY(100%)',
-            display: 'none'
-          }
-        }, 
         slideIn: {
           '0%': {
             transform:'translateY(100%)',
@@ -106,13 +95,27 @@ export default {
           },
           '1%':  {
             transform:'translateY(100%)',
-            display: 'inherit'
+            display: 'block'
           },
           '100%': {
             transform:'translateY(0%)',
-            display: 'inherit'
+            display: 'block'
           }
         },
+        slideOut: {
+          '0%': {
+            transform:'translateY(0%)',
+            display: 'block'
+          },
+          '99%':  {
+            transform:'translateY(100%)',
+            display: 'block'
+          },
+          '100%': {
+            transform:'translateY(100%)',
+            display: 'none'
+          }
+        }, 
         fadeOut: {
           '0%': {
             opacity:'80%',
@@ -140,6 +143,16 @@ export default {
             opacity:'80%',
             display: 'inherit'
           },
+        },
+        popupShow: {
+          '0%': {
+            opacity: '0%',
+            scale: '0.9',
+          },
+          '100%': {
+            opacity: '100%',
+            scale: '1',
+          }
         }
       },
       animation: {
@@ -149,7 +162,8 @@ export default {
         slideIn: 'slideIn 0.3s',
         slideOut: 'slideOut 0.3s',
         fadeIn: 'fadeIn 0.3s',
-        fadeOut: 'fadeOut 0.3s', 
+        fadeOut: 'fadeOut 0.3s',
+        popupShow: 'popupShow 0.3s'
       },
       plugins: [],
     }
