@@ -3,9 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-
   html {
-    @apply bg-pm-white font-roboto h-full;
+    @apply bg-pm-white font-roboto h-full overflow-hidden;
   }
 
   h1 {
@@ -15,14 +14,20 @@
   h2 {
     @apply font-raleway font-black text-pm-black text-l;
   }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
-      display: none;
+    display: none;
   }
   .no-scrollbar {
-      -ms-overflow-style: none; 
-      scrollbar-width: none; 
-}
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
