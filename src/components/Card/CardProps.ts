@@ -4,5 +4,5 @@ export type CardProps = PropsWithChildren<CardSpecificProps>;
 
 interface CardSpecificProps {
   className?: string;
-  popover?: string;
+  popover?: "" | "auto" | "manual" | undefined;
 }

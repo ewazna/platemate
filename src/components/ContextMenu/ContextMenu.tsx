@@ -32,8 +32,8 @@ function ContextMenu({ id, children, className }: ContextMenuProps) {
         type="button"
         className={`px-1 min-[650px]:scale-125`}
         onClick={handleMenuClick}
-        popovertarget={id}
-        popovertargetaction="toggle"
+        popoverTarget={id}
+        popoverTargetAction="toggle"
       >
         <PiDotsThreeOutlineVerticalFill />
       </IconButton>
