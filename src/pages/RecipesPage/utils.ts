@@ -1,4 +1,4 @@
-import { FilterFormFields } from "./Filters/FilterFormFields";
+import { FilterFormFields } from "./Filters/FilterForm/FilterFormFields";
 import { RecipesFetchOptions } from "../../store/apis/recipes/RecipesFetchOptions";
 
 export function transformRecipeFetchOptions(options: RecipesFetchOptions): RecipesFetchOptions {
