@@ -3,7 +3,7 @@ import { auth } from "../../firebase";
 
 const baseQueryWithAuth = async (args: FetchArgs, api: BaseQueryApi, extraOptions: object) => {
   const rawBaseQuery = fetchBaseQuery({
-    baseUrl: "/api",
+    baseUrl: import.meta.env.VITE_API_BASE_URL,
   });
 
   const user = auth.currentUser;
