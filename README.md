@@ -1,30 +1,62 @@
-# PlateMate App
+# **PlateMate**  
+**PlateMate** is a user-friendly application designed to help you organize your recipes effortlessly. Its primary goal is to simplify meal planning and streamline the creation of shopping lists. PlateMate helps you save time, reduce waste, and enjoy the art of cooking.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## **Main features of PlateMate**  
+- **Managing Recipes**: Easily add, edit, and organize your favorite recipes.  
+- **Sharing Recipes**: Share your culinary creations with friends and family.  
+- **Advanced Search**: Search your recipes based on ingredients, dietary preferences, categories, and other filters.  
+- **Responsive design**: Use app on desktop or mobile device with ease, thanks to responsive design with mobile-first approach.
+- **Easy signup**: Create account with email and password or sign in with your exising Google or Facebook account.
 
-Currently, two official plugins are available:
+## **Try PlateMate Now**  
+Visit the app: [platemate.com.pl](https://platemate.com.pl)  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+If you don’t want to create your own account, feel free to use the test user credentials below:  
+**User**: `userplatemate@gmail.com`  
+**Password**: `Userplatemate!123`
 
-## Expanding the ESLint configuration
+## **Technologies Used**  
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### **Frontend**
+Frontend of Platemate is a React SPA application. It is hosted on Firebase platform and uses Firebase for user authentication. Main technologies used are:
+- React
+- Vite
+- TypeScript
+- TailwindCSS
+- RTK Query
+- React Hook Form
+- Firebase SDK
 
-- Configure the top-level `parserOptions` property like this:
+### **Backend**
+Backend of Platemate is REST api node.js service, which uses MongoDB database and Cloudinary service for image storage. It is hosted on AWS EC2 instance. Main technologies used are:
+- Express.js
+- Typescript
+- MongoDB  
+- Cloudinary
+- Firebase SDK
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+Visit also backend repository [GitHub Link](https://github.com/ewazna/platemate_backend).
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## **Possible Future Development**  
+
+### **Meal Plans section**  
+It will allow users to:  
+- Create personalized meal plans.  
+- Group recipes into custom meal categories (e.g., breakfast, lunch, dinner).  
+- Mark recipes as "cooked" for better tracking.  
+
+### **Shopping Lists section**  
+Users will be able to:  
+- Automatically generate shopping lists, based on mealplans.  
+- Customize these lists to fit their specific needs.
+- Share shopping lists
+
+### **Discover section and Social Features**  
+Social features could transform PlateMate into community for food enthusiasts, allowing users to:  
+- Browse the most popular recipes shared by other users.  
+- Publish own recipes and save recipes created by other users to your personal collection.  
+- Comment on and rate recipes to connect with others and share feedback.
+
+## **Additional Links**  
+- Complete app design: [Figma Prototype](https://www.figma.com/design/v4evRPwg5p5pN2xcxo8SWM/PlateMate-App?node-id=0-1&t=bVGsKaEzpMCsuduQ-1)  
+- Backend Repository: [GitHub Link](https://github.com/ewazna/platemate_backend)  
