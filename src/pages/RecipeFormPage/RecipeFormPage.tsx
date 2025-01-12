@@ -130,11 +130,11 @@ function RecipeFormPage() {
   }, [addRecipeResults, navigate, dispatch, showToast]);
 
   const handleAddIngredient = () => {
-    append({});
+    append({ name: "", quantity: "", unit: "" });
   };
 
   const handleAddStep = () => {
-    appendStep({});
+    appendStep({ description: "" });
   };
 
   const handleDiscard = () => {
