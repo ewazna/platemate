@@ -104,7 +104,12 @@ const recipesApi = createApi({
       }),
       changeRecipeItem: builder.mutation<Recipe, Recipe>({
         invalidatesTags: (result: Recipe | undefined) => {
-          return result ? [{ type: "Recipe", id: "All" }] : [];
+          return result
+            ? [
+                { type: "Recipe", id: "All" },
+                { type: "Recipe" as const, id: result._id as string },
+              ]
+            : [];
         },
         query: (recipe) => {
           return {
