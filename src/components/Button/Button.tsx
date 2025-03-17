@@ -67,10 +67,10 @@ const Button = React.forwardRef<HTMLButtonElement, PropsWithChildren<ButtonProps
       }
     }
 
-    function checkStyleVariation({ raised, underlined }: ButtonProps) {
-      const count = Number(!!raised) + Number(!!underlined);
+    function checkStyleVariation({ raised, underlined, outlined }: ButtonProps) {
+      const count = Number(!!raised) + Number(!!underlined) + Number(!!outlined);
       if (count > 1) {
-        throw new Error("Only one of raised, underlined can be true");
+        throw new Error("Only one of raised, underlined, outlined can be true");
       }
     }
 
@@ -79,7 +79,7 @@ const Button = React.forwardRef<HTMLButtonElement, PropsWithChildren<ButtonProps
 
     return (
       <button type="button" {...rest} ref={ref} className={classes} disabled={disabled}>
-        {loading ? <GoSync className="animate-spin" /> : children}
+        {loading ? <GoSync className="animate-spin" data-testid="loading-icon" /> : children}
       </button>
     );
   },
