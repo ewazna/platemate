@@ -24,7 +24,7 @@ function Chip(props: ChipProps) {
   return (
     <Button outlined type="button" className={classes} onClick={handleClick} {...rest}>
       {label}
-      <span className="pl-1">{props.allowDelete ? <CgClose /> : ""}</span>
+      <span className="pl-1">{props.allowDelete ? <CgClose data-testid="close-icon" /> : ""}</span>
     </Button>
   );
 }
