@@ -8,12 +8,21 @@
 - **Responsive design**: Use app on desktop or mobile device with ease, thanks to responsive design with mobile-first approach.
 - **Easy signup**: Create account with email and password or sign in with your exising Google or Facebook account.
 
+<div>
+<img src="public/images/platemate1.png" alt="Screenshot of PlateMate" width="150">
+<img src="public/images/platemate2.png" alt="Screenshot of PlateMate" width="150">
+<img src="public/images/platemate3.png" alt="Screenshot of PlateMate" width="150">
+<img src="public/images/platemate4.png" alt="Screenshot of PlateMate" width="150">
+</div>
+
 ## **Try PlateMate Now**  
 Visit the app: [platemate.com.pl](https://platemate.com.pl)  
 
 If you don’t want to create your own account, feel free to use the test user credentials below:  
 **User**: `userplatemate@gmail.com`  
 **Password**: `Userplatemate!123`
+
+Check out the app in action! [Watch the demo video](https://youtu.be/sSJsAnhDiVw)  
 
 ## **Technologies Used**  
 
