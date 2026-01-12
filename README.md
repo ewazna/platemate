@@ -16,7 +16,7 @@
 </div>
 
 ## **Try PlateMate Now**  
-Visit the app: [platemate.com.pl](https://platemate.com.pl)  
+Visit the app: [platemate.ewawazna.pl](https://platemate.ewawazna.pl)  
 
 If you don’t want to create your own account, feel free to use the test user credentials below:  
 **User**: `userplatemate@gmail.com`  
@@ -37,7 +37,7 @@ Frontend of Platemate is a React SPA application. It is hosted on Firebase platf
 - Firebase SDK
 
 ### **Backend**
-Backend of Platemate is REST api node.js service, which uses MongoDB database and Cloudinary service for image storage. It is hosted on AWS EC2 instance. Main technologies used are:
+Backend of Platemate is REST api node.js service, which uses MongoDB database and Cloudinary service for image storage. It is hosted on [Render.com] platform. Main technologies used are:
 - Express.js
 - Typescript
 - MongoDB  
